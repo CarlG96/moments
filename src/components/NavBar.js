@@ -3,9 +3,20 @@ import { Container, Navbar, Nav } from "react-bootstrap";
 import logo from "../assets/moments-logo.png";
 import styles from "../styles/NavBar.module.css";
 import { NavLink } from "react-router-dom";
-import { useCurrentUser } from "../contexts/CurrentUserContext";
+import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
+import Avatar from "./Avatar";
+import axios from "axios";
 
 const NavBar = () => {
+  const setCurrentUser = useSetCurrentUser();
+  const handleSignOut = async() => {
+    try {
+      const { data } = await axios.post("dj-rest-auth/logout/");
+      setCurrentUser(null);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   const currentUser = useCurrentUser();
   const addPostIcon = (
     <NavLink
@@ -38,7 +49,7 @@ const NavBar = () => {
         to="/"
         exact
         className={styles.NavLink}
-        onClick={() => {}}
+        onClick={handleSignOut}
       >
         <i className="fas fa-sign-out-alt"></i>Sign out
       </NavLink>
@@ -46,7 +57,7 @@ const NavBar = () => {
         to={`/profiles/${currentUser?.profile_id}`}
         className={styles.NavLink}
       >
-        <img src={currentUser?.profile_image} />
+        <Avatar src={currentUser?.profile_image} text="Profile" height={40} />
       </NavLink>
   </>;
   const loggedOutIcons = (
