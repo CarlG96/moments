@@ -19,7 +19,7 @@ import { useRedirect } from "../../hooks/useRedirect";
 
 const SignUpForm = () => {
   //lots of stuff wrong
-  useRedirect('loggedIn');
+  // useRedirect('loggedIn');
   const [signUpData, setSignUpData] = useState({
     username: "",
     password1: "",

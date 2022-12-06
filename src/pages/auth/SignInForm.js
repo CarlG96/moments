@@ -20,7 +20,7 @@ import { useRedirect } from "../../hooks/useRedirect";
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
   //lots of stuff wrong with this
-  useRedirect('loggedIn');
+  // useRedirect('loggedIn');
   
   const [signInData, setSignInData] = useState({
     username: "",
